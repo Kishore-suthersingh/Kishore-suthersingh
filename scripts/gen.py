@@ -19,15 +19,15 @@ CONFIG = {
     "user": "Kishore-suthersingh",
     "name": "KISHORE N",
     "role": "COMPUTER VISION  ·  MACHINE LEARNING",
-    "motto": "“I teach machines to see what others miss.”",
+    "motto": "“Devoted to every pixel, loyal to every model.”",
     "origin": "CHENNAI",
-    "class": "VISIONARY",
+    "class": "BLUE ONI",
     "buttons": ["PORTFOLIO", "LINKEDIN", "EMAIL", "RESUME"],
     "abilities": [
-        ("I", "TRUE SIGHT", "Object detection &", "segmentation", "YOLOv8 · OpenCV", "eye"),
+        ("I", "CLAIRVOYANCE", "Object detection &", "segmentation", "YOLOv8 · OpenCV", "eye"),
         ("II", "DREAMWEAVER", "Conjures images from", "noise & prompts", "SDXL · LoRA · ControlNet", "spiral"),
-        ("III", "NEURAL LINK", "Reads intent straight", "from brainwaves", "EEG · CNN · RNN", "wave"),
-        ("ULT", "SUMMONING", "Ships any model as", "a live API", "FastAPI · React", "gate"),
+        ("III", "MORNING STAR", "Swings CNN/RNN at", "raw brainwaves", "EEG · CNN · RNN", "flail"),
+        ("ULT", "ONI AWAKENING", "Full-stack mode: ships", "any model as a live API", "FastAPI · React", "horn"),
     ],
     "cases": [
         {
@@ -61,10 +61,11 @@ CONFIG = {
     ],
 }
 
-# Black, brass & oxblood
-INK, PANEL, PANEL2 = "#0e0c0a", "#17130f", "#1f1a14"
-BRASS, BRASS_HI, BRASS_LO = "#c9a45c", "#f0d79a", "#6e5830"
-PARCH, DIM, BLOOD, TEAL = "#e9dcc0", "#8c7d63", "#9b2f2f", "#3f7a73"
+# Blue oni maid: night navy, ice blue, white lace, oni pink
+# (names kept from the earlier palette so the drawing code stays the same)
+INK, PANEL, PANEL2 = "#090d1c", "#10172c", "#17213d"
+BRASS, BRASS_HI, BRASS_LO = "#8ec5f2", "#e3f2ff", "#34507e"
+PARCH, DIM, BLOOD, TEAL = "#f1f6ff", "#8496ba", "#ec5f8a", "#b6a4ee"
 SERIF = "Georgia,'Times New Roman',serif"
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -230,28 +231,113 @@ PLACEHOLDER = {
 }
 
 
+# ----------------------------------------------------------------- MOTIFS
+def lace(x0, x1, y, r=9, down=True, color=PARCH, opacity=0.55):
+    """A strip of maid-apron lace: scallops with eyelet holes."""
+    d, holes = [], []
+    n = int((x1 - x0) // (2 * r))
+    sweep = 0 if down else 1
+    for i in range(n):
+        a = x0 + i * 2 * r
+        d.append(f"M{a} {y}A{r} {r} 0 0 {sweep} {a + 2 * r} {y}")
+        hy = y + (r * 0.45 if down else -r * 0.45)
+        holes.append(f'<circle cx="{a + r}" cy="{hy:.1f}" r="1.6"/>')
+    band = y - 3 if down else y + 3
+    return (
+        f'<g opacity="{opacity}"><path d="M{x0} {band}H{x0 + n * 2 * r}" stroke="{color}" stroke-width="1"/>'
+        f'<path d="{"".join(d)}" fill="none" stroke="{color}" stroke-width="1.4"/>'
+        f'<g fill="{color}">{"".join(holes)}</g></g>'
+    )
+
+
+def spiked_ball(cx, cy, r, color=BRASS):
+    spikes = []
+    for k in range(10):
+        a = 2 * math.pi * k / 10
+        p = lambda ang, rad: f"{cx + rad * math.cos(ang):.1f} {cy + rad * math.sin(ang):.1f}"
+        spikes.append(f"M{p(a - 0.25, r - 1)}L{p(a, r + 9)}L{p(a + 0.25, r - 1)}Z")
+    return (
+        f'<path d="{"".join(spikes)}" fill="{color}"/>'
+        f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="{PANEL2}" stroke="{color}" stroke-width="2"/>'
+        f'<circle cx="{cx - r / 3:.1f}" cy="{cy - r / 3:.1f}" r="{r / 4:.1f}" fill="{BRASS_HI}" opacity=".5"/>'
+    )
+
+
+def flail(cx, top, length=150, swing=7, dur=4.5, delay=0):
+    """Morning-star on a chain, gently swinging from its anchor."""
+    links = []
+    for k in range(int(length // 12)):
+        y = top + 8 + k * 12
+        rx, ry = (2.5, 6) if k % 2 == 0 else (5, 6)
+        links.append(f'<ellipse cx="{cx}" cy="{y}" rx="{rx}" ry="{ry}" fill="none" stroke="{BRASS_LO}" stroke-width="1.6"/>')
+    return (
+        f'<g><circle cx="{cx}" cy="{top}" r="4" fill="{BRASS}"/>{"".join(links)}'
+        + spiked_ball(cx, top + length + 16, 15)
+        + f'<animateTransform attributeName="transform" type="rotate" values="{-swing} {cx} {top};{swing} {cx} {top};{-swing} {cx} {top}" '
+        f'dur="{dur}s" begin="{delay}s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>'
+    )
+
+
+def horn(cx, base, height=40, color=BLOOD, glow=True):
+    """A single oni horn, curving slightly, with a pulsing glow."""
+    w = height * 0.32
+    d = (f"M{cx - w} {base}Q{cx - w * 0.6} {base - height * 0.6} {cx + w * 0.35} {base - height}"
+         f"Q{cx + w * 0.2} {base - height * 0.45} {cx + w} {base}Z")
+    g = (f'<path d="{d}" fill="{color}" opacity=".35" transform="translate(0 0)" filter="url(#bloom)">'
+         '<animate attributeName="opacity" values=".15;.6;.15" dur="2.4s" repeatCount="indefinite"/></path>') if glow else ""
+    return g + f'<path d="{d}" fill="{color}"/><path d="M{cx - w * 0.3} {base - 4}Q{cx} {base - height * 0.5} {cx + w * 0.3} {base - height * 0.85}" stroke="#fff" stroke-opacity=".45" stroke-width="1.5" fill="none"/>'
+
+
+def hairclip(cx, cy, s=1.0, color=PARCH):
+    """X-shaped hair clip with a tiny flower in the middle."""
+    a = 16 * s
+    bar = f'stroke="{color}" stroke-width="{4 * s:.1f}" stroke-linecap="round"'
+    petals = "".join(
+        f'<circle cx="{cx + 5 * s * math.cos(k * math.pi / 2 + math.pi / 4):.1f}" cy="{cy + 5 * s * math.sin(k * math.pi / 2 + math.pi / 4):.1f}" r="{3.6 * s:.1f}" fill="{BRASS}"/>'
+        for k in range(4)
+    )
+    return (f'<path d="M{cx - a} {cy - a}L{cx + a} {cy + a}M{cx + a} {cy - a}L{cx - a} {cy + a}" {bar}/>'
+            f"{petals}<circle cx=\"{cx}\" cy=\"{cy}\" r=\"{2.6 * s:.1f}\" fill=\"{BRASS_HI}\"/>")
+
+
+def snow(w, h, n=28, seed=7):
+    out = []
+    for i in range(n):
+        x = (i * 131 + seed * 17) % (w - 60) + 30
+        r = 1.2 + (i % 3) * 0.7
+        dur = 9 + (i % 5) * 2
+        out.append(
+            f'<circle cx="{x}" cy="-6" r="{r}" fill="{BRASS_HI}" opacity=".0">'
+            f'<animate attributeName="cy" values="-6;{h + 6}" dur="{dur}s" begin="-{i * 0.7:.1f}s" repeatCount="indefinite"/>'
+            f'<animate attributeName="opacity" values="0;.8;.8;0" dur="{dur}s" begin="-{i * 0.7:.1f}s" repeatCount="indefinite"/></circle>'
+        )
+    return "".join(out)
+
+
+BLOOM = '<filter id="bloom" x="-1" y="-1" width="3" height="3"><feGaussianBlur stdDeviation="5"/></filter>'
+
+
 # ---------------------------------------------------------------- DRAWING
 def draw_header():
     w, h = 1000, 340
     defs = gold_gradient("gold", animate=True) + (
         f'<radialGradient id="glow" cx=".5" cy="1" r=".8"><stop offset="0" stop-color="{BLOOD}" stop-opacity=".35"/>'
         f'<stop offset="1" stop-color="{INK}" stop-opacity="0"/></radialGradient>'
-    )
+    ) + BLOOM
     b = [deco_frame(w, h, fill=PANEL)]
     b.append(f'<rect x="18" y="18" width="{w - 36}" height="{h - 36}" fill="url(#glow)"/>')
-    b.append(sunburst(w / 2, h - 18, 620, opacity=0.06))
-    # slow pulse on the rays
-    b.append(f'<g opacity=".5">{sunburst(w / 2, h - 18, 620, rays=72, opacity=0.05)}'
-             '<animate attributeName="opacity" values=".2;.7;.2" dur="7s" repeatCount="indefinite"/></g>')
-    # top crest
-    b.append(f'<path d="M{w / 2 - 60} 18L{w / 2} 58L{w / 2 + 60} 18" fill="none" stroke="{BRASS}" stroke-width="1.5"/>')
-    b.append(diamond(w / 2, 40, 8))
-    # side pillars
-    for x in (60, w - 60):
-        for k in range(4):
-            b.append(f'<rect x="{x - 2 - k * 7}" y="{90 + k * 10}" width="{4 + k * 14}" height="2" fill="{BRASS_LO}"/>')
-        b.append(f'<rect x="{x - 1}" y="70" width="2" height="200" fill="{BRASS_LO}"/>')
-    b.append(t("—  DOSSIER OF  —", w / 2, 100, 15, DIM, "middle", 8))
+    b.append(sunburst(w / 2, h - 18, 620, opacity=0.05))
+    b.append(snow(w, h))
+    # lace trim, top and bottom
+    b.append(lace(30, w - 30, 26, down=True))
+    b.append(lace(30, w - 30, h - 26, down=False))
+    # crest: oni horn rising from the hair clip
+    b.append(horn(w / 2, 62, 34))
+    b.append(hairclip(w / 2, 74, 0.8))
+    # morning-star flails swinging on both sides
+    b.append(flail(85, 40, 150, delay=0))
+    b.append(flail(w - 85, 40, 150, delay=-2.2))
+    b.append(t("—  AT YOUR SERVICE  —", w / 2, 112, 15, DIM, "middle", 8))
     b.append(t(CONFIG["name"], w / 2 + 2, 182, 78, "#000", "middle", 18, "bold", extra=' opacity=".6"'))
     b.append(t(CONFIG["name"], w / 2, 180, 78, "url(#gold)", "middle", 18, "bold"))
     b.append(rule(w / 2, 212, 260))
@@ -276,17 +362,20 @@ def draw_buttons():
 
 def draw_card(stats, live):
     w, h = 1000, 360
-    defs = gold_gradient("gold2")
+    defs = gold_gradient("gold2") + BLOOM
     b = [deco_frame(w, h)]
+    b.append(lace(30, 290, 26, r=7, opacity=0.35))
     year = dt.date.today().year
 
     # --- emblem
     cx, cy = 150, 150
     b.append(sunburst(cx, cy + 60, 150, rays=28, opacity=0.08))
+    b.append(horn(cx + 34, cy - 60, 36))
     b.append(f'<circle cx="{cx}" cy="{cy}" r="72" fill="{INK}" stroke="{BRASS}" stroke-width="2"/>')
     b.append(f'<circle cx="{cx}" cy="{cy}" r="62" fill="none" stroke="{BRASS_LO}" stroke-width="1" stroke-dasharray="2 5"/>')
     b.append(f'<g transform="rotate(45 {cx} {cy})"><rect x="{cx - 42}" y="{cy - 42}" width="84" height="84" fill="none" stroke="{BRASS_LO}"/></g>')
     b.append(t(CONFIG["name"][0], cx, cy + 22, 64, "url(#gold2)", "middle", 0, "bold"))
+    b.append(hairclip(cx - 50, cy - 52, 0.8))
     b.append(t(CONFIG["name"], cx, 262, 22, PARCH, "middle", 6, "bold"))
     b.append(t(f"CLASS · {CONFIG['class']}", cx, 288, 12, BRASS, "middle", 4))
     b.append(t(f"ORIGIN · {CONFIG['origin']}", cx, 308, 12, DIM, "middle", 4))
@@ -345,6 +434,12 @@ def icon(kind, cx, cy):
     if kind == "wave":
         return (f'<path d="M{cx - 26} {cy}H{cx - 14}L{cx - 8} {cy - 16}L{cx - 1} {cy + 18}L{cx + 6} {cy - 10}'
                 f'L{cx + 11} {cy}H{cx + 26}" {s}/>')
+    if kind == "flail":
+        return (f'<path d="M{cx - 22} {cy + 20}L{cx - 6} {cy + 4}" stroke="{BRASS_HI}" stroke-width="4" stroke-linecap="round"/>'
+                f'<path d="M{cx - 6} {cy + 4}Q{cx} {cy - 6} {cx + 4} {cy - 6}" {s} stroke-dasharray="3 3"/>'
+                + spiked_ball(cx + 8, cy - 8, 9, BRASS_HI))
+    if kind == "horn":
+        return horn(cx, cy + 22, 44, glow=False)
     # gate
     return (f'<path d="M{cx - 20} {cy + 20}V{cy - 6}Q{cx - 20} {cy - 22} {cx} {cy - 22}Q{cx + 20} {cy - 22} {cx + 20} {cy - 6}V{cy + 20}" {s}/>'
             f'<path d="M{cx - 9} {cy + 20}V{cy - 2}Q{cx} {cy - 12} {cx + 9} {cy - 2}V{cy + 20}" {s} opacity=".6"/>')
@@ -379,7 +474,7 @@ def draw_cases():
     w, h = 490, 250
     for c in CONFIG["cases"]:
         b = [deco_frame(w, h, step=12)]
-        b.append(t(f"CASE FILE № {c['no']}", 36, 50, 11, BRASS, spacing=5))
+        b.append(t(f"ORDER № {c['no']}", 36, 50, 11, BRASS, spacing=5))
         b.append(f'<path d="M36 62H{w - 36}" stroke="{BRASS_LO}"/>')
         y = 96
         for ln in c["title"]:
@@ -393,13 +488,13 @@ def draw_cases():
         for tag in c["tags"]:
             tw = len(tag) * 9 + 24
             b.append(f'<rect x="{x}" y="{h - 62}" width="{tw}" height="24" fill="none" stroke="{BLOOD}" stroke-width="1.5"/>')
-            b.append(t(tag.upper(), x + tw / 2, h - 45, 11, "#d0645a", "middle", 2, "bold"))
+            b.append(t(tag.upper(), x + tw / 2, h - 45, 11, BLOOD, "middle", 2, "bold"))
             x += tw + 10
         # wax-seal stamp
         sx, sy = w - 66, 62
         b.append(f'<g transform="rotate(-14 {sx} {sy})"><circle cx="{sx}" cy="{sy}" r="30" fill="none" stroke="{BLOOD}" stroke-width="2" opacity=".75"/>'
                  f'<circle cx="{sx}" cy="{sy}" r="25" fill="none" stroke="{BLOOD}" stroke-width="1" opacity=".75"/>'
-                 + t("SEALED" if c["tags"] else "HONOR", sx, sy + 3, 8, BLOOD, "middle", 0, "bold", extra=' opacity=".9"') + "</g>")
+                 + t("CLEARED" if c["tags"] else "HONOR", sx, sy + 3, 8, BLOOD, "middle", 0, "bold", extra=' opacity=".9"') + "</g>")
         write(f"cases/{c['slug']}.svg", svg(w, h, "".join(b), " ".join(c["title"])))
 
 

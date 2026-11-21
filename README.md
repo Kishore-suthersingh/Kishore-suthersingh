@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/header.svg" width="100%" alt="Dossier of Kishore N, Computer Vision and Machine Learning"/>
+<img src="assets/header.svg" width="100%" alt="Kishore N, at your service, Computer Vision and Machine Learning"/>
 
 <!-- TODO: replace https://YOUR-PORTFOLIO-URL with your deployed portfolio (e.g. the Vercel URL) -->
 <a href="https://YOUR-PORTFOLIO-URL"><img src="assets/btn-portfolio.svg" width="23%" alt="Portfolio"/></a>
@@ -15,19 +15,19 @@ interfaces to Stable Diffusion + LoRA image synthesis served over FastAPI. Final
 
 <br/><br/>
 
-<img src="assets/card.svg" width="100%" alt="Dossier card: contributions this year, current and longest streak, repositories, stars and top languages. Refreshed daily."/>
+<img src="assets/card.svg" width="100%" alt="Character card: contributions this year, current and longest streak, repositories, stars and top languages. Refreshed daily."/>
 
-<img src="assets/abilities.svg" width="100%" alt="Abilities: True Sight (YOLOv8, OpenCV), Dreamweaver (SDXL, LoRA, ControlNet), Neural Link (EEG, CNN, RNN), Summoning (FastAPI, React)"/>
+<img src="assets/abilities.svg" width="100%" alt="Abilities: Clairvoyance (YOLOv8, OpenCV), Dreamweaver (SDXL, LoRA, ControlNet), Morning Star (EEG, CNN, RNN), Oni Awakening (FastAPI, React)"/>
 
-### ◆ &nbsp; C A S E &nbsp; F I L E S &nbsp; ◆
+### ◆ &nbsp; O R D E R S &nbsp; ◆
 
 <!-- TODO: point each link at the matching repository -->
-<a href="https://github.com/Kishore-suthersingh?tab=repositories"><img src="assets/cases/image-gen.svg" width="49%" alt="Case 001: Domain image generation pipeline"/></a>
-<a href="https://github.com/Kishore-suthersingh?tab=repositories"><img src="assets/cases/synthetic-data.svg" width="49%" alt="Case 002: Multi-modal synthetic data"/></a>
-<a href="https://github.com/Kishore-suthersingh?tab=repositories"><img src="assets/cases/eeg-bci.svg" width="49%" alt="Case 003: EEG brain-computer interface"/></a>
+<a href="https://github.com/Kishore-suthersingh?tab=repositories"><img src="assets/cases/image-gen.svg" width="49%" alt="Order 001: Domain image generation pipeline"/></a>
+<a href="https://github.com/Kishore-suthersingh?tab=repositories"><img src="assets/cases/synthetic-data.svg" width="49%" alt="Order 002: Multi-modal synthetic data"/></a>
+<a href="https://github.com/Kishore-suthersingh?tab=repositories"><img src="assets/cases/eeg-bci.svg" width="49%" alt="Order 003: EEG brain-computer interface"/></a>
 <img src="assets/cases/commendations.svg" width="49%" alt="Commendations: 1st Cognisence Coding Competition, 5th Coders of the BlackPearl, Smart India Hackathon pre-final"/>
 
-### ◆ &nbsp; T H E &nbsp; T R A I L &nbsp; ◆
+### ◆ &nbsp; T H E &nbsp; H U N T &nbsp; ◆
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Kishore-suthersingh/Kishore-suthersingh/output/snake-dark.svg"/>
