@@ -27,13 +27,9 @@ interfaces to Stable Diffusion + LoRA image synthesis served over FastAPI. Final
 <a href="https://github.com/Kishore-suthersingh?tab=repositories"><img src="assets/cases/eeg-bci.svg" width="49%" alt="Order 003: EEG brain-computer interface"/></a>
 <img src="assets/cases/commendations.svg" width="49%" alt="Commendations: 1st Cognisence Coding Competition, 5th Coders of the BlackPearl, Smart India Hackathon pre-final"/>
 
-### ◆ &nbsp; T H E &nbsp; H U N T &nbsp; ◆
+### ◆ &nbsp; S W E E T &nbsp; D R E A M S &nbsp; ◆
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Kishore-suthersingh/Kishore-suthersingh/output/snake-dark.svg"/>
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Kishore-suthersingh/Kishore-suthersingh/output/snake-light.svg"/>
-  <img alt="A snake devouring my contribution graph" src="https://raw.githubusercontent.com/Kishore-suthersingh/Kishore-suthersingh/output/snake-dark.svg"/>
-</picture>
+<img src="media/rem.gif" width="280" alt="Rem from Deadlock, in his starry nightcap"/>
 
 <sub>Every panel here is drawn by <code>scripts/gen.py</code> and refreshed daily by a GitHub Action.</sub>
 
