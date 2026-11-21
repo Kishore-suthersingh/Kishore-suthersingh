@@ -2,11 +2,10 @@
 
 <img src="assets/header.svg" width="100%" alt="Kishore N, at your service, Computer Vision and Machine Learning"/>
 
-<!-- TODO: replace https://YOUR-PORTFOLIO-URL with your deployed portfolio (e.g. the Vercel URL) -->
-<a href="https://YOUR-PORTFOLIO-URL"><img src="assets/btn-portfolio.svg" width="23%" alt="Portfolio"/></a>
+<a href="https://kishore-portfolio-virid.vercel.app"><img src="assets/btn-portfolio.svg" width="23%" alt="Portfolio"/></a>
 <a href="https://linkedin.com/in/kishore-sutharsingh"><img src="assets/btn-linkedin.svg" width="23%" alt="LinkedIn"/></a>
 <a href="mailto:kishoresuthar5392@gmail.com"><img src="assets/btn-email.svg" width="23%" alt="Email"/></a>
-<a href="https://YOUR-PORTFOLIO-URL/Kishore_N_Resume.pdf"><img src="assets/btn-resume.svg" width="23%" alt="Resume"/></a>
+<a href="https://kishore-portfolio-virid.vercel.app/Kishore_N_Resume.pdf"><img src="assets/btn-resume.svg" width="23%" alt="Resume"/></a>
 
 <br/><br/>
 
